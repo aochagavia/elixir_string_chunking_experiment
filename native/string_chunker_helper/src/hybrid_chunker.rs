@@ -9,13 +9,13 @@ fn next_word_length(s: rustler::Binary) -> usize {
   let len = std::cmp::min(s.len(), MAX_WORD_SIZE + 1);
   let next_word_length = next_word_length_internal(&s[..len]);
 
-  if next_word_length <= 500 {
+  if next_word_length <= MAX_WORD_SIZE {
     return next_word_length;
   }
 
-  // The next_word_length was 501, and it might be a legitimate word, but we can't know for sure
-  // because the algorithm did not scan the rest of the string. Returning 0 indicates that no word
-  // was found, so the caller can fall back to a different chunking method
+  // The next_word_length was MAX_WORD_SIZE + 1, and it might be a legitimate word, but we can't
+  // know for sure because the algorithm did not scan the rest of the string. Returning 0 indicates
+  // that no word was found, so the caller can fall back to a different chunking method
   0
 }
 
